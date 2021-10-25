@@ -9,4 +9,14 @@
     <PackageReference Include="OpenPop.NET" Version="2.0.6.1120" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\business\business.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Windows.Forms.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

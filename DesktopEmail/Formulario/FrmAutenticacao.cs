@@ -30,7 +30,9 @@ namespace DesktopEmail.Formulario
             .FirstOrDefault(m => m.Senha == txtSenha.Text &&
             m.Email == txtEmail.Text) != null)
             {
-                FormPadrao.ativar = true;
+                FormPadrao.funcionario = BaseModel.modelos.OfType<Funcionario>()
+                .First(m => m.Senha == txtSenha.Text &&
+                m.Email == txtEmail.Text);
                 this.Dispose();
             }
         }

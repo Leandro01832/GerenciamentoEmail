@@ -8,8 +8,9 @@ namespace business
    public class EmailCliente : Email
     {
         public string Remetente { get; set; }
-        public string Categoria { get; set; }
+        
         public string ConteudoTexto { get; set; }
+        public string Body { get; set; }
         public int? AtendenteId { get; set; }
         public virtual Atendente Atendente { get; set; }
 

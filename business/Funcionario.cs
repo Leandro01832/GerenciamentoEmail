@@ -8,6 +8,17 @@ namespace business
     {
         public virtual List<PermissaoFuncionario> Permissao { get; set; }
 
-        public string Senha { get; set; }
+        private string senha;
+        [OpcoesBase(Caracteres = 8, ChaveEstrangeira = false, ChavePrimaria = false, Index = false, Obrigatorio = true)]
+        public string Senha
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(senha) || string.IsNullOrWhiteSpace(senha) || senha.Length <= 7)
+                    throw new Exception("Senha");
+                return senha;
+            }
+            set { senha = value; }
+        }
     }
 }

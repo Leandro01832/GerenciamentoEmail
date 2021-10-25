@@ -7,7 +7,7 @@ namespace business
 {
    public class BD : DbContext
     {
-
+        public DbSet<PermissaoFuncionario> PermissaoFuncionario { get; set; }
         public DbSet<Atendente> Atendente { get; set; }
         public DbSet<Admin> Admin { get; set; }
         public DbSet<PessoaPF> PessoaPF { get; set; }

@@ -1,0 +1,98 @@
+﻿@model business.EmailAdvocacia
+
+@{
+    ViewData["Title"] = "Email";
+}
+
+<h1>Email</h1>
+
+
+<script type="text/javascript">
+
+    var Editar = function () {
+        tinymce.init({
+            selector: "#Body_Html",
+            plugins: ['advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+                'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+                'table emoticons template paste help'],
+            toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | '
+                + 'bullist numlist outdent indent | link image | print preview media fullpage | '
+                + 'forecolor backcolor emoticons | help',
+            menu: { favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | spellchecker | emoticons' } },
+            menubar: 'favs file edit view insert format tools table help', content_css: '/css/site.css',
+            setup: function (editor) { editor.on('change', function () { editor.save(); }); }
+        });
+    };
+</script>
+
+<h4>Body</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Email">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="PessoaId" class="control-label"></label>
+                <select asp-for="PessoaId" class="form-control" asp-items="ViewBag.PessoaId"></select>
+            </div>
+
+            <input asp-for="MensagemId" type="hidden" class="form-control" />
+            <input asp-for="Data" type="hidden" class="form-control" />
+
+            <div class="form-group">
+                <label asp-for="Assunto" class="control-label"></label>
+                <input asp-for="Assunto" class="form-control" />
+                <span asp-validation-for="Assunto" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.Body.Html" class="control-label"></label>
+                <script type="text/javascript">Editar();</script>
+                <textarea asp-for="@Model.Body.Html" class="form-control">@Model.Body.Html</textarea>
+                <span asp-validation-for="@Model.Body.Html" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script type="text/javascript">
+
+    var Editar = function () {
+        tinymce.init({
+            selector: "#Body_Html",
+            plugins: ['advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+                'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+                'table emoticons template paste help'],
+            toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | '
+                + 'bullist numlist outdent indent | link image | print preview media fullpage | '
+                + 'forecolor backcolor emoticons | help',
+            menu: { favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | spellchecker | emoticons' } },
+            menubar: 'favs file edit view insert format tools table help', content_css: '/css/site.css',
+            setup: function (editor) { editor.on('change', function () { editor.save(); }); }
+        });
+    };
+
+
+
+    function GetContent() {
+        return tinyMCE.get('Html').GetContent();
+    }
+
+    function SetContent(htmlContent) {
+        tinyMCE.get('Html').SetContent(htmlContent);
+    }
+</script>
+}
+

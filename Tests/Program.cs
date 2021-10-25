@@ -1,4 +1,5 @@
-﻿using OpenPop.Mime.Header;
+﻿using business;
+using OpenPop.Mime.Header;
 using OpenPop.Pop3;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,21 @@ namespace Tests
         static void Main(string[] args)
         {
 
-            BuscaEmail("pop.gmail.com", 995, "leandro91luis@gmail.com", "Gasparzinho2020");
+            // BuscaEmail("pop.gmail.com", 995, "leandro91luis@gmail.com", "Gasparzinho2020");
+
+            Admin admin = new Admin();
+            admin.Email = "leo";
+          //  admin.Nome = "leandro";
+            admin.Senha = "123";
+            try
+            {
+                admin.Salvar();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(admin.MensagemErro(ex));
+            }
+
 
             Console.WriteLine("OK!");
             Console.Read();

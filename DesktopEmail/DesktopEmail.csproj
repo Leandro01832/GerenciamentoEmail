@@ -79,9 +79,6 @@
       <HintPath>..\packages\Microsoft.Extensions.Primitives.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="MstHtmlEditor">
-      <HintPath>..\..\..\..\Downloads\HtmlEditor Control for NET4\MstHtmlEditor.dll</HintPath>
-    </Reference>
     <Reference Include="OpenPop, Version=2.0.6.1120, Culture=neutral, PublicKeyToken=6bdb97f144b7efc8, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenPop.NET.2.0.6.1120\lib\net40\OpenPop.dll</HintPath>
     </Reference>
@@ -136,11 +133,59 @@
     <Compile Include="Formulario\FormPadrao.Designer.cs">
       <DependentUpon>FormPadrao.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formulario\FormularioEmail\FrmEmailAdvocacia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulario\FormularioEmail\FrmEmailAdvocacia.Designer.cs">
+      <DependentUpon>FrmEmailAdvocacia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formulario\FormularioEmail\FrmEmailCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulario\FormularioEmail\FrmEmailCliente.Designer.cs">
+      <DependentUpon>FrmEmailCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formulario\FormularioPessoa\FrmAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulario\FormularioPessoa\FrmAdmin.Designer.cs">
+      <DependentUpon>FrmAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formulario\FormularioPessoa\FrmAtendente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulario\FormularioPessoa\FrmAtendente.Designer.cs">
+      <DependentUpon>FrmAtendente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formulario\FormularioPessoa\FrmClientePF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulario\FormularioPessoa\FrmClientePF.Designer.cs">
+      <DependentUpon>FrmClientePF.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formulario\FormularioPessoa\FrmClientePJ.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulario\FormularioPessoa\FrmClientePJ.Designer.cs">
+      <DependentUpon>FrmClientePJ.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formulario\FormularioPessoa\FrmTerceiros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulario\FormularioPessoa\FrmTerceiros.Designer.cs">
+      <DependentUpon>FrmTerceiros.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formulario\FrmAutenticacao.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formulario\FrmAutenticacao.Designer.cs">
       <DependentUpon>FrmAutenticacao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formulario\FrmCrud.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulario\FrmCrud.Designer.cs">
+      <DependentUpon>FrmCrud.cs</DependentUpon>
     </Compile>
     <Compile Include="Formulario\FrmEnviaEmail.cs">
       <SubType>Form</SubType>
@@ -148,11 +193,23 @@
     <Compile Include="Formulario\FrmEnviaEmail.Designer.cs">
       <DependentUpon>FrmEnviaEmail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formulario\FrmListagem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulario\FrmListagem.Designer.cs">
+      <DependentUpon>FrmListagem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formulario\FrmOpenEmail.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formulario\FrmOpenEmail.Designer.cs">
       <DependentUpon>FrmOpenEmail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formulario\FrmPermissao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulario\FrmPermissao.Designer.cs">
+      <DependentUpon>FrmPermissao.cs</DependentUpon>
     </Compile>
     <Compile Include="Formulario\MDIEmail.cs">
       <SubType>Form</SubType>
@@ -171,14 +228,44 @@
     <EmbeddedResource Include="Formulario\FormPadrao.resx">
       <DependentUpon>FormPadrao.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formulario\FormularioEmail\FrmEmailAdvocacia.resx">
+      <DependentUpon>FrmEmailAdvocacia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formulario\FormularioEmail\FrmEmailCliente.resx">
+      <DependentUpon>FrmEmailCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formulario\FormularioPessoa\FrmAdmin.resx">
+      <DependentUpon>FrmAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formulario\FormularioPessoa\FrmAtendente.resx">
+      <DependentUpon>FrmAtendente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formulario\FormularioPessoa\FrmClientePF.resx">
+      <DependentUpon>FrmClientePF.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formulario\FormularioPessoa\FrmClientePJ.resx">
+      <DependentUpon>FrmClientePJ.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formulario\FormularioPessoa\FrmTerceiros.resx">
+      <DependentUpon>FrmTerceiros.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formulario\FrmAutenticacao.resx">
       <DependentUpon>FrmAutenticacao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formulario\FrmCrud.resx">
+      <DependentUpon>FrmCrud.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formulario\FrmEnviaEmail.resx">
       <DependentUpon>FrmEnviaEmail.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formulario\FrmListagem.resx">
+      <DependentUpon>FrmListagem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formulario\FrmOpenEmail.resx">
       <DependentUpon>FrmOpenEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formulario\FrmPermissao.resx">
+      <DependentUpon>FrmPermissao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formulario\MDIEmail.resx">
       <DependentUpon>MDIEmail.cs</DependentUpon>
@@ -214,14 +301,6 @@
       <Project>{35c48505-db75-4145-81f9-b9c4b5c137f0}</Project>
       <Name>business</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Hunspellx64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Hunspellx86.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

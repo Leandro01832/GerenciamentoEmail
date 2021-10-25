@@ -4,72 +4,10 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
-@if (Model != null)
-{
-
-    <script type="text/javascript">
-
-        var Editar = function () {
-            tinymce.init({
-                selector: "#textarea",
-                plugins: ['advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
-                    'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
-                    'table emoticons template paste help'],
-                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | '
-                    + 'bullist numlist outdent indent | link image | print preview media fullpage | '
-                    + 'forecolor backcolor emoticons | help',
-                menu: { favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | spellchecker | emoticons' } },
-                menubar: 'favs file edit view insert format tools table help', content_css: '/css/site.css',
-                setup: function (editor) { editor.on('change', function () { editor.save(); }); }
-            });
-        };
-    </script>
-}
 
 
 
-<div class="form-group">
-    <label asp-for="Body" class="control-label"></label>
-    <script type="text/javascript">Editar();</script>
-    <textarea id="textarea" name="textarea" class="form-control">@Model.Body</textarea>
-    <span asp-validation-for="Body" class="text-danger"></span>
-</div>
+    <div class="text-center">
+        @Html.ActionLink("Cadastrar Corpo de Email", "Email")
+    </div>
 
-@section scripts
-    {
-
-
-
-    <script type="text/javascript">
-
-        var Editar = function () {
-            tinymce.init({
-                selector: "#textarea",
-                plugins: ['advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
-                    'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
-                    'table emoticons template paste help'],
-                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | '
-                    + 'bullist numlist outdent indent | link image | print preview media fullpage | '
-                    + 'forecolor backcolor emoticons | help',
-                menu: { favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | spellchecker | emoticons' } },
-                menubar: 'favs file edit view insert format tools table help', content_css: '/css/site.css',
-                setup: function (editor) { editor.on('change', function () { editor.save(); }); }
-            });
-        };
-
-
-
-        function GetContent() {
-            return tinyMCE.get('textarea').GetContent();
-        }
-
-        function SetContent(htmlContent) {
-            tinyMCE.get('textarea').SetContent(htmlContent);
-        }
-    </script>
-}

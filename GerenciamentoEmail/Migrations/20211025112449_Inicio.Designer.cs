@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GerenciamentoEmail.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211022214645_Inicio")]
+    [Migration("20211025112449_Inicio")]
     partial class Inicio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -186,6 +186,17 @@ namespace GerenciamentoEmail.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("business.Body", b =>
+                {
+                    b.Property<int>("Id");
+
+                    b.Property<string>("Html");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Body");
+                });
+
             modelBuilder.Entity("business.EmailAdvocacia", b =>
                 {
                     b.Property<int>("Id")
@@ -193,8 +204,6 @@ namespace GerenciamentoEmail.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Assunto");
-
-                    b.Property<string>("Body");
 
                     b.Property<DateTime>("Data");
 
@@ -382,6 +391,14 @@ namespace GerenciamentoEmail.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("business.Body", b =>
+                {
+                    b.HasOne("business.EmailAdvocacia", "EmailAdvocacia")
+                        .WithOne("Body")
+                        .HasForeignKey("business.Body", "Id")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

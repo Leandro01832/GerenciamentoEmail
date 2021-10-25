@@ -28,36 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            BaiqiSoft.HtmlEditorControl.FormatHtmlOptions formatHtmlOptions1 = new BaiqiSoft.HtmlEditorControl.FormatHtmlOptions();
-            this.mstHtmlEditor1 = new BaiqiSoft.HtmlEditorControl.MstHtmlEditor();
             this.btnEnviar = new System.Windows.Forms.Button();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtAssunto = new System.Windows.Forms.TextBox();
+            this.lstEmail = new System.Windows.Forms.ListBox();
+            this.wbHtml = new System.Windows.Forms.WebBrowser();
             this.SuspendLayout();
-            // 
-            // mstHtmlEditor1
-            // 
-            formatHtmlOptions1.BreakBeforeBR = true;
-            formatHtmlOptions1.ClosingSingleTags = true;
-            formatHtmlOptions1.IndentHtmlTags = true;
-            formatHtmlOptions1.IndentScript = true;
-            formatHtmlOptions1.IndentSpaces = 4;
-            formatHtmlOptions1.IndentWithTabs = false;
-            formatHtmlOptions1.LowercaseTags = true;
-            formatHtmlOptions1.QuoteAttributeValues = true;
-            this.mstHtmlEditor1.FormatHtmlOptions = formatHtmlOptions1;
-            this.mstHtmlEditor1.LanguageConfig = null;
-            this.mstHtmlEditor1.Location = new System.Drawing.Point(10, 11);
-            this.mstHtmlEditor1.Name = "mstHtmlEditor1";
-            this.mstHtmlEditor1.SelectionLength = 0;
-            this.mstHtmlEditor1.SelectionStart = 0;
-            this.mstHtmlEditor1.Size = new System.Drawing.Size(1322, 605);
-            this.mstHtmlEditor1.TabIndex = 0;
             // 
             // btnEnviar
             // 
             this.btnEnviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEnviar.Location = new System.Drawing.Point(801, 631);
+            this.btnEnviar.Location = new System.Drawing.Point(798, 684);
             this.btnEnviar.Name = "btnEnviar";
             this.btnEnviar.Size = new System.Drawing.Size(174, 42);
             this.btnEnviar.TabIndex = 1;
@@ -68,7 +51,7 @@
             // txtEmail
             // 
             this.txtEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmail.Location = new System.Drawing.Point(197, 643);
+            this.txtEmail.Location = new System.Drawing.Point(139, 639);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(569, 30);
             this.txtEmail.TabIndex = 2;
@@ -77,21 +60,61 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(97, 648);
+            this.label1.Location = new System.Drawing.Point(39, 644);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(66, 25);
+            this.label1.Size = new System.Drawing.Size(59, 25);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Email:";
+            this.label1.Text = "Para:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(39, 697);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(90, 25);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Assunto:";
+            // 
+            // txtAssunto
+            // 
+            this.txtAssunto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAssunto.Location = new System.Drawing.Point(139, 692);
+            this.txtAssunto.Name = "txtAssunto";
+            this.txtAssunto.Size = new System.Drawing.Size(569, 30);
+            this.txtAssunto.TabIndex = 4;
+            // 
+            // lstEmail
+            // 
+            this.lstEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstEmail.FormattingEnabled = true;
+            this.lstEmail.ItemHeight = 25;
+            this.lstEmail.Location = new System.Drawing.Point(12, 12);
+            this.lstEmail.Name = "lstEmail";
+            this.lstEmail.Size = new System.Drawing.Size(696, 604);
+            this.lstEmail.TabIndex = 6;
+            this.lstEmail.SelectedValueChanged += new System.EventHandler(this.lstEmail_SelectedValueChanged);
+            // 
+            // wbHtml
+            // 
+            this.wbHtml.Location = new System.Drawing.Point(798, 12);
+            this.wbHtml.MinimumSize = new System.Drawing.Size(20, 20);
+            this.wbHtml.Name = "wbHtml";
+            this.wbHtml.Size = new System.Drawing.Size(967, 604);
+            this.wbHtml.TabIndex = 7;
             // 
             // FrmEnviaEmail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1340, 691);
+            this.ClientSize = new System.Drawing.Size(1777, 738);
+            this.Controls.Add(this.wbHtml);
+            this.Controls.Add(this.lstEmail);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtAssunto);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.btnEnviar);
-            this.Controls.Add(this.mstHtmlEditor1);
             this.Name = "FrmEnviaEmail";
             this.Text = "FrmEnviaEmail";
             this.Load += new System.EventHandler(this.FrmEnviaEmail_Load);
@@ -101,10 +124,12 @@
         }
 
         #endregion
-
-        private BaiqiSoft.HtmlEditorControl.MstHtmlEditor mstHtmlEditor1;
         private System.Windows.Forms.Button btnEnviar;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtAssunto;
+        private System.Windows.Forms.ListBox lstEmail;
+        private System.Windows.Forms.WebBrowser wbHtml;
     }
 }

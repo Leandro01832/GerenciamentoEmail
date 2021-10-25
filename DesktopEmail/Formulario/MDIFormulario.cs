@@ -1,4 +1,6 @@
-﻿using System;
+﻿using business;
+using DesktopEmail.Formulario.FormularioPessoa;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -102,6 +104,84 @@ namespace DesktopEmail.Formulario
             {
                 childForm.Close();
             }
+        }
+
+        private void adminToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmAdmin form = new FrmAdmin(new Admin(), false, false, false);
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void atendenteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmAtendente form = new FrmAtendente(new Atendente(), false, false, false);
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void clientePFToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmClientePF form = new FrmClientePF(new PessoaPF(), false, false, false);
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void clientePJToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmClientePJ form = new FrmClientePJ(new PessoaPJ(), false, false, false);
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void terceirosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            FrmTerceiros form = new FrmTerceiros(new Terceiros(), false, false, false);
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void toolStripMenuItem11_Click(object sender, EventArgs e)
+        {
+            FrmPermissao form = new FrmPermissao(new Permissao(), false, false, false);
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            FrmListagem form = new FrmListagem(typeof(Admin));
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            FrmListagem form = new FrmListagem(typeof(Atendente));
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            FrmListagem form = new FrmListagem(typeof(PessoaPF));
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            FrmListagem form = new FrmListagem(typeof(PessoaPJ));
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            FrmListagem form = new FrmListagem(typeof(Terceiros));
+            form.MdiParent = this;
+            form.Show();
         }
     }
 }

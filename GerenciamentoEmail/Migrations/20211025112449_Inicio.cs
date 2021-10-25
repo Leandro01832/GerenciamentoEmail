@@ -200,7 +200,6 @@ namespace GerenciamentoEmail.Migrations
                     MensagemId = table.Column<string>(nullable: true),
                     Assunto = table.Column<string>(nullable: true),
                     Data = table.Column<DateTime>(nullable: false),
-                    Body = table.Column<string>(nullable: true),
                     PessoaId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -223,10 +222,10 @@ namespace GerenciamentoEmail.Migrations
                     MensagemId = table.Column<string>(nullable: true),
                     Assunto = table.Column<string>(nullable: true),
                     Data = table.Column<DateTime>(nullable: false),
-                    Body = table.Column<string>(nullable: true),
                     Remetente = table.Column<string>(nullable: true),
                     Categoria = table.Column<string>(nullable: true),
                     ConteudoTexto = table.Column<string>(nullable: true),
+                    Body = table.Column<string>(nullable: true),
                     AtendenteId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -260,6 +259,24 @@ namespace GerenciamentoEmail.Migrations
                         name: "FK_PermissaoFuncionario_Permissao_PermissaoId",
                         column: x => x.PermissaoId,
                         principalTable: "Permissao",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Body",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false),
+                    Html = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Body", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Body_EmailAdvocacia_Id",
+                        column: x => x.Id,
+                        principalTable: "EmailAdvocacia",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -349,7 +366,7 @@ namespace GerenciamentoEmail.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "EmailAdvocacia");
+                name: "Body");
 
             migrationBuilder.DropTable(
                 name: "EmailCliente");
@@ -364,10 +381,13 @@ namespace GerenciamentoEmail.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Pessoa");
+                name: "EmailAdvocacia");
 
             migrationBuilder.DropTable(
                 name: "Permissao");
+
+            migrationBuilder.DropTable(
+                name: "Pessoa");
         }
     }
 }

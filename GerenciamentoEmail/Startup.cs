@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using GerenciamentoEmail.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using business;
 
 namespace GerenciamentoEmail
 {
@@ -41,6 +42,17 @@ namespace GerenciamentoEmail
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Default Password settings.
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequiredUniqueChars = 1;
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -72,6 +84,8 @@ namespace GerenciamentoEmail
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            BaseModel.Desktop = false;
         }
     }
 }
