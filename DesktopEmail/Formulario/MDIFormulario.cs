@@ -108,28 +108,44 @@ namespace DesktopEmail.Formulario
 
         private void adminToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmAdmin form = new FrmAdmin(new Admin(), false, false, false);
+            FrmAdmin form = new FrmAdmin();
+            form.CondicaoAtualizar = false;
+            form.CondicaoDeletar = false;
+            form.CondicaoDetalhes = false;
+            form.Modelo = new Admin();
             form.MdiParent = this;
             form.Show();
         }
 
         private void atendenteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmAtendente form = new FrmAtendente(new Atendente(), false, false, false);
+            FrmAtendente form = new FrmAtendente();
+            form.CondicaoAtualizar = false;
+            form.CondicaoDeletar = false;
+            form.CondicaoDetalhes = false;
+            form.Modelo = new Atendente();
             form.MdiParent = this;
             form.Show();
         }
 
         private void clientePFToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmClientePF form = new FrmClientePF(new PessoaPF(), false, false, false);
+            FrmClientePF form = new FrmClientePF();
+            form.CondicaoAtualizar = false;
+            form.CondicaoDeletar = false;
+            form.CondicaoDetalhes = false;
+            form.Modelo = new PessoaPF();
             form.MdiParent = this;
             form.Show();
         }
 
         private void clientePJToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmClientePJ form = new FrmClientePJ(new PessoaPJ(), false, false, false);
+            FrmClientePJ form = new FrmClientePJ();
+            form.CondicaoAtualizar = false;
+            form.CondicaoDeletar = false;
+            form.CondicaoDetalhes = false;
+            form.Modelo = new Categoria();
             form.MdiParent = this;
             form.Show();
         }
@@ -137,14 +153,22 @@ namespace DesktopEmail.Formulario
         private void terceirosToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            FrmTerceiros form = new FrmTerceiros(new Terceiros(), false, false, false);
+            FrmTerceiros form = new FrmTerceiros();
+            form.CondicaoAtualizar = false;
+            form.CondicaoDeletar = false;
+            form.CondicaoDetalhes = false;
+            form.Modelo = new Categoria();
             form.MdiParent = this;
             form.Show();
         }
 
         private void toolStripMenuItem11_Click(object sender, EventArgs e)
         {
-            FrmPermissao form = new FrmPermissao(new Permissao(), false, false, false);
+            FrmPermissao form = new FrmPermissao();
+            form.CondicaoAtualizar = false;
+            form.CondicaoDeletar = false;
+            form.CondicaoDetalhes = false;
+            form.Modelo = new Permissao();
             form.MdiParent = this;
             form.Show();
         }

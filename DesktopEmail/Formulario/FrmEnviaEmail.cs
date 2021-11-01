@@ -27,17 +27,24 @@ namespace DesktopEmail.Formulario
             lstEmail.DataSource = BaseModel.modelos
             .OfType<EmailAdvocacia>().Where(em => !em.Enviado).ToList();
              email = (EmailAdvocacia) lstEmail.SelectedItem;
+
+            lstCategoria.DataSource = BaseModel.modelos
+            .OfType<Permissao>().Where(p => p.Id > 9).ToList();
         }
 
         private async void btnEnviar_Click(object sender, EventArgs e)
         {
             btnEnviar.Enabled = false;
             var verificacao = BaseModel.modelos.OfType<Pessoa>().FirstOrDefault(p => p.Email == txtEmail.Text);
-            if(verificacao != null)
+            if(verificacao != null && FormPadrao.ativar && BaseModel.modelos
+            .OfType<Permissao>().Where(em => em.Id > 9).ToList().Count > 0 ||
+               verificacao != null &&
+               FormPadrao.funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "EnviarEmail") != null &&
+               BaseModel.modelos.OfType<Permissao>().Where(em => em.Id > 13).ToList().Count > 0)
             {
                 var valor = email.Body.Html;
 
-                MailMessage mail = new MailMessage(EmailAdvocacia.EndEmailAdvocacia, txtEmail.Text);
+                MailMessage mail = new MailMessage(FormPadrao.Email, txtEmail.Text);
 
                 mail.Subject = txtAssunto.Text;
                 mail.Body = valor;
@@ -47,23 +54,19 @@ namespace DesktopEmail.Formulario
 
                 SmtpClient cliente = new SmtpClient("smtp.gmail.com", 587);
                 cliente.UseDefaultCredentials = false;
-                cliente.Credentials = new NetworkCredential(EmailAdvocacia.EndEmailAdvocacia, "Gasparzinho2020");
+                cliente.Credentials = new NetworkCredential(FormPadrao.Email, FormPadrao.SenhaEmail);
                 cliente.EnableSsl = true;
 
                 await cliente.SendMailAsync(mail);
 
                 var pessoa = BaseModel.modelos.OfType<Pessoa>().FirstOrDefault(p => p.Email == txtEmail.Text);
 
-                EmailAdvocacia emai = new EmailAdvocacia();
-                emai.Assunto = txtAssunto.Text;
-                emai.Data = Convert.ToDateTime(DateTime.Now.ToString("dd/MM/yyyy"));
-                emai.MensagemId = "";
-                emai.PessoaId = pessoa.Id;
-                emai.Body = new Body();
-                emai.Body.Html = valor;
-                emai.Salvar();
-
-
+                email.Enviado = true;
+                var categoria = (Categoria)lstCategoria.SelectedItem;
+                email.Categoria.Permissao.Nome = categoria.Permissao.Nome;
+                email.Categoria.Id = categoria.Id;
+                email.Alterar();
+                MessageBox.Show("Email enviado com sucesso!!!");
             }
             else
             {
@@ -78,6 +81,14 @@ namespace DesktopEmail.Formulario
             txtAssunto.Text = email.Assunto;
             txtEmail.Text = email.Pessoa.Email;
             wbHtml.DocumentText = email.Body.Html;
+        }
+
+        private void lstCategoria_SelectedValueChanged(object sender, EventArgs e)
+        {
+            email = (EmailAdvocacia)lstEmail.SelectedItem;
+            var categoria = (Permissao)lstCategoria.SelectedItem;
+            if(email != null)
+            email.CategoriaId = categoria.Id;
         }
     }
 }

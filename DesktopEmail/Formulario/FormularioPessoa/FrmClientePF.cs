@@ -7,22 +7,18 @@ namespace DesktopEmail.Formulario.FormularioPessoa
 {
     public partial class FrmClientePF : FrmCrud
     {
-        public FrmClientePF()
+        public FrmClientePF() : base()
         {
             InitializeComponent();
         }
         // variavel para evitar bug
         bool condicao = false;
-
-        public FrmClientePF(BaseModel modelo, bool deletar, bool atualizar, bool detalhes)
-            : base(modelo, deletar, atualizar, detalhes)
-        {
-            InitializeComponent();
-        }
+        
 
         private void FrmClientePF_Load(object sender, EventArgs e)
         {
             lstBoxEmpresa.DataSource = BaseModel.modelos.OfType<PessoaPJ>().ToList();
+            if(BaseModel.modelos.OfType<PessoaPJ>().ToList().Count > 0)
             lstBoxEmpresa.SetSelected(0, false);
 
             var PessoaPF = (PessoaPF)Modelo;
@@ -37,6 +33,7 @@ namespace DesktopEmail.Formulario.FormularioPessoa
             }
 
             condicao = true;
+            LoadForm();
         }
 
         private void txtNome_TextChanged(object sender, EventArgs e)
@@ -51,7 +48,7 @@ namespace DesktopEmail.Formulario.FormularioPessoa
             PessoaPF.Email = txtEmail.Text;
         }
 
-        private void txtCnpj_TextChanged(object sender, EventArgs e)
+        private void txtCpf_TextChanged(object sender, EventArgs e)
         {
             var PessoaPF = (PessoaPF)Modelo;
             PessoaPF.Cpf = txtCpf.Text;

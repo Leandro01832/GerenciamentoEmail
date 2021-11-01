@@ -4,6 +4,7 @@ using System.Text;
 using business;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using GerenciamentoEmail.Models;
 
 namespace GerenciamentoEmail.Data
 {
@@ -36,5 +37,6 @@ namespace GerenciamentoEmail.Data
            .HasIndex(u => u.Email)
            .IsUnique();
         }
+        
     }
 }

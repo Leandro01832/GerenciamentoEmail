@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPadrao));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.gerenciamentoDeEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gerenciamentoDeFuncionariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -74,6 +76,12 @@
             this.gerenciamentoDeFuncionariosToolStripMenuItem.Text = "Gerenciamento de funcionários";
             this.gerenciamentoDeFuncionariosToolStripMenuItem.Click += new System.EventHandler(this.gerenciamentoDeFuncionariosToolStripMenuItem_Click);
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "notifyIcon";
+            this.notifyIcon1.Visible = true;
+            // 
             // FormPadrao
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -100,5 +108,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem gerenciamentoDeEmailToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gerenciamentoDeFuncionariosToolStripMenuItem;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }

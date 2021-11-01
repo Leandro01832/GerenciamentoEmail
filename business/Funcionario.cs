@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace business
@@ -10,15 +11,7 @@ namespace business
 
         private string senha;
         [OpcoesBase(Caracteres = 8, ChaveEstrangeira = false, ChavePrimaria = false, Index = false, Obrigatorio = true)]
-        public string Senha
-        {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(senha) || string.IsNullOrWhiteSpace(senha) || senha.Length <= 7)
-                    throw new Exception("Senha");
-                return senha;
-            }
-            set { senha = value; }
-        }
+        [Required(ErrorMessage = "Este campo é necessário!!!")]
+        public string Senha { get; set; }
     }
 }

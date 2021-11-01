@@ -1,4 +1,5 @@
-﻿using System;
+﻿using business;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -37,7 +38,7 @@ namespace DesktopEmail.Formulario
             //    string FileName = openFileDialog.FileName;
             //}
             FrmOpenEmail form = new FrmOpenEmail();
-            form.MdiParent = this.MdiParent;
+            form.MdiParent = this;
             form.Show();
 
         }
@@ -111,7 +112,25 @@ namespace DesktopEmail.Formulario
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmEnviaEmail form = new FrmEnviaEmail();
-            form.MdiParent = this.MdiParent;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void cadastrarCategoriaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmPermissao form = new FrmPermissao();
+            form.CondicaoAtualizar = false;
+            form.CondicaoDeletar = false;
+            form.CondicaoDetalhes = false;
+            form.Modelo = new Permissao();
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            FrmListagem form = new FrmListagem(typeof(Permissao));
+            form.MdiParent = this;
             form.Show();
         }
     }

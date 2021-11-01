@@ -14,17 +14,11 @@ namespace DesktopEmail.Formulario.FormularioPessoa
 {
     public partial class FrmAtendente : FrmCrud
     {
-        public FrmAtendente()
+        public FrmAtendente() : base()
         {
             InitializeComponent();
         }
-
-        public FrmAtendente(BaseModel modelo, bool deletar, bool atualizar, bool detalhes)
-            : base(modelo, deletar, atualizar, detalhes)
-        {
-            InitializeComponent();
-            
-        }
+        
 
         // variavel para evitar bug
         bool condicao = false;
@@ -46,8 +40,11 @@ namespace DesktopEmail.Formulario.FormularioPessoa
                     lstPermissoes.SetSelected(indice, true);
                 }
             }
+            else
+                Atendente.Permissao = new List<PermissaoFuncionario>();
 
             condicao = true;
+            LoadForm();
         }
 
         private void txtNome_TextChanged(object sender, EventArgs e)

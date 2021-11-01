@@ -13,20 +13,15 @@ namespace DesktopEmail.Formulario.FormularioEmail
 {
     public partial class FrmEmailCliente : FrmCrud
     {
-        public FrmEmailCliente()
+        public FrmEmailCliente() : base()
         {
             InitializeComponent();
         }
-
-        public FrmEmailCliente(BaseModel modelo, bool deletar, bool atualizar, bool detalhes)
-            : base(modelo, deletar, atualizar, detalhes)
-        {
-
-        }
+        
 
         private void FrmEmailCliente_Load(object sender, EventArgs e)
         {
-
+            LoadForm();
         }
     }
 }

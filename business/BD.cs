@@ -16,13 +16,14 @@ namespace business
         public DbSet<EmailAdvocacia> EmailAdvocacia { get; set; }
         public DbSet<EmailCliente> EmailCliente { get; set; }
         public DbSet<Permissao> Permissao { get; set; }
+        public DbSet<Categoria> Categoria { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
 
-            optionsBuilder
-            .UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Database-Email;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+           // optionsBuilder.UseSqlServer(@"Data Source=database-advocacia.mssql.somee.com;packet size=4096;user id=leandro01835_SQLLogin_1;pwd=cuiom27is7;data source=database-advocacia.mssql.somee.com;persist security info=False;initial catalog=database-advocacia");
+            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-5HMQJL9;Initial Catalog=Database-Email;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

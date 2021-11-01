@@ -55,6 +55,7 @@
             this.txtNome.Name = "txtNome";
             this.txtNome.Size = new System.Drawing.Size(251, 30);
             this.txtNome.TabIndex = 1;
+            this.txtNome.TextChanged += new System.EventHandler(this.txtNome_TextChanged);
             // 
             // txtEmail
             // 
@@ -63,6 +64,7 @@
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(251, 30);
             this.txtEmail.TabIndex = 3;
+            this.txtEmail.TextChanged += new System.EventHandler(this.txtEmail_TextChanged);
             // 
             // label2
             // 
@@ -81,6 +83,8 @@
             this.txtSenha.Name = "txtSenha";
             this.txtSenha.Size = new System.Drawing.Size(251, 30);
             this.txtSenha.TabIndex = 5;
+            this.txtSenha.UseSystemPasswordChar = true;
+            this.txtSenha.TextChanged += new System.EventHandler(this.txtSenha_TextChanged);
             // 
             // label3
             // 
@@ -112,6 +116,7 @@
             this.lstPermissoes.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.lstPermissoes.Size = new System.Drawing.Size(251, 204);
             this.lstPermissoes.TabIndex = 16;
+            this.lstPermissoes.SelectedValueChanged += new System.EventHandler(this.lstPermissoes_SelectedValueChanged);
             // 
             // FrmAtendente
             // 

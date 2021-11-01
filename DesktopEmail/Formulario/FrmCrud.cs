@@ -29,24 +29,17 @@ namespace DesktopEmail.Formulario
         public Button Atualizar { get => atualizar; set => atualizar = value; }
         public Button Deletar { get => deletar; set => deletar = value; }
         public Button FinalizaCadastro { get => finalizarCadastro; set => finalizarCadastro = value; }
-        public BaseModel Modelo { get; }
+        public BaseModel Modelo { get; set; }
         
-        public FrmCrud(BaseModel modelo, bool deletar, bool atualizar, bool detalhes)
+        public FrmCrud()
         {
-            Modelo = modelo;
 
             InfoForm = new Label();
             InfoForm.Location = new Point(10, 10);
             InfoForm.Width = 1200;
             InfoForm.Font = new Font("Arial", 12);
 
-            condicaoDeletar = deletar;
-            condicaoAtualizar = atualizar;
-            condicaoDetalhes = detalhes;
-
-            this.FormClosing += FrmCrud_FormClosing;
-            
-            
+            this.FormClosing += FrmCrud_FormClosing;           
 
             Deletar = new Button();
             Deletar.Click += Deletar_Click;
@@ -75,97 +68,15 @@ namespace DesktopEmail.Formulario
             
 
             InfoForm.Visible = false;
-            this.Controls.Add(InfoForm);
-
-            if (condicaoAtualizar || condicaoDeletar || condicaoDetalhes)
-            {
-                InfoForm.Visible = true;
-                FinalizaCadastro.Visible = false;
-
-                if (modelo is Pessoa)
-                {
-                    var pessoa = (Pessoa)modelo;
-                    InfoForm.Text = "Identificação: " + pessoa.Id.ToString() +
-                    " - " + pessoa.Nome;
-                }
-                else
-                if (modelo is Permissao)
-                {
-                    var permissao = (Permissao)modelo;
-                    InfoForm.Text = "Identificação: " + permissao.Id.ToString() +
-                        " - " + permissao.Nome;
-                }
-                else
-                if (modelo is Email)
-                {
-                    var email = (Email)modelo;
-                    InfoForm.Text = "Identificação: " + email.Id.ToString() +
-                    " - " + email.Assunto;
-                }
-
-            }
-
-            
-            
-
-            if (!condicaoAtualizar && !condicaoDeletar && !condicaoDetalhes &&
-                this is FrmAtendente ||
-                !condicaoAtualizar && !condicaoDeletar && !condicaoDetalhes &&
-                this is FrmAdmin ||
-                !condicaoAtualizar && !condicaoDeletar && !condicaoDetalhes &&
-                this is FrmClientePF ||
-                !condicaoAtualizar && !condicaoDeletar && !condicaoDetalhes &&
-                this is FrmClientePJ||
-                !condicaoAtualizar && !condicaoDeletar && !condicaoDetalhes &&
-                this is FrmTerceiros)
-            {
-                FinalizaCadastro.Visible = true;
-            }
-
-            if (condicaoAtualizar)
-                Atualizar.Visible = true;
-
-
-            if (condicaoDeletar)
-                Deletar.Visible = true;
-
-            if (CondicaoDetalhes)
-            {
-                foreach (var item in this.Controls)
-                {
-                    if (item is TextBox)
-                    {
-                        var t = (TextBox)item;
-                        t.ReadOnly = true;
-                    }
-                    if (item is MaskedTextBox)
-                    {
-                        var t = (MaskedTextBox)item;
-                        t.ReadOnly = true;
-                    }
-
-                    if (item is Button && !(this is FrmAtendente) &&
-                        !(this is FrmClientePF) && !(this is FrmClientePJ) &&
-                        !(this is FrmAdmin) && !(this is FrmTerceiros))
-                    {
-                        var t = (Button)item;
-                        t.Enabled = false;
-                    }
-                }
-            }
+            this.Controls.Add(InfoForm);           
         }
 
         private void FinalizaCadastro_Click(object sender, EventArgs e)
         {
             FinalizaCadastro.Enabled = false;
             if (FormPadrao.ativar || 
-                Modelo is Email && FormPadrao.funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "Admin") != null ||
                 Modelo is Email && FormPadrao.funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "EnviarEmail")    != null ||
-                Modelo is Email && FormPadrao.funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "AdminEmail") != null ||
-                Modelo is Pessoa && FormPadrao.funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "Admin") != null ||
-                Modelo is Pessoa && FormPadrao.funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "AdminPessoa") != null ||
-                Modelo is Permissao && FormPadrao.funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "Permissao") != null ||
-                Modelo is Pessoa && FormPadrao.funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "CadastrarPessoa") != null)
+                Modelo is Admin)
             {
 
                 try
@@ -181,7 +92,7 @@ namespace DesktopEmail.Formulario
 
                         BaseModel.banco.SaveChanges();
                     }
-
+                    BaseModel.modelos.Add(Modelo);
                     MessageBox.Show("cadastro realizado com sucesso!!!");
                     this.Dispose();
                 }
@@ -200,20 +111,15 @@ namespace DesktopEmail.Formulario
             Atualizar.Enabled = false;
 
             if (FormPadrao.ativar ||
-                Modelo is Email && FormPadrao.funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "Admin") != null ||
                 Modelo is Email && FormPadrao.funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "AtualizarEmail") != null ||
-                Modelo is Email && FormPadrao.funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "AdminEmail") != null ||
-                Modelo is Pessoa && FormPadrao.funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "Admin") != null ||
-                Modelo is Pessoa && FormPadrao.funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "AdminPessoa") != null ||
-                Modelo is Permissao && FormPadrao.funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "Permissao") != null ||
-                Modelo is Pessoa && FormPadrao.funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "AtulizarPessoa") != null)
+                Modelo is Admin )
             {
                 Email email = null;
                 if (Modelo is Email)
                     email = (Email)Modelo;
                 if (Modelo is Email &&
-                        FormPadrao.funcionario.Permissao.FirstOrDefault(f => f.Permissao.Nome == email.Categoria) != null ||
-                        Modelo is Email &&  FormPadrao.ativar)
+                        FormPadrao.funcionario.Permissao.FirstOrDefault(f => f.Permissao.Nome == email.Categoria.Permissao.Nome) != null ||
+                          FormPadrao.ativar ||  FormPadrao.funcionario is Admin)
                 {
                     Modelo.Alterar();  
                     MessageBox.Show("Dados atualizados com sucesso!!!");
@@ -242,31 +148,28 @@ namespace DesktopEmail.Formulario
             Deletar.Enabled = false;
 
             if (FormPadrao.ativar ||
-                Modelo is Email && FormPadrao.funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "Admin") != null ||
                 Modelo is Email && FormPadrao.funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "DeletarEmail") != null ||
-                Modelo is Email && FormPadrao.funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "AdminEmail") != null ||
-                Modelo is Pessoa && FormPadrao.funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "Admin") != null ||
-                Modelo is Pessoa && FormPadrao.funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "AdminPessoa") != null ||
-                Modelo is Permissao && FormPadrao.funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "Permissao") != null ||
-                Modelo is Pessoa && FormPadrao.funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "DeletarPessoa") != null)
+                Modelo is Admin)
             {
                 Email email = null;
                 if (Modelo is Email)
                     email = (Email)Modelo;
                 if (Modelo is Email &&
-                        FormPadrao.funcionario.Permissao.FirstOrDefault(f => f.Permissao.Nome == email.Categoria) != null ||
-                        Modelo is Email && FormPadrao.ativar)
+                        FormPadrao.funcionario.Permissao.FirstOrDefault(f => f.Permissao.Nome == email.Categoria.Permissao.Nome) != null ||
+                        FormPadrao.ativar ||  FormPadrao.funcionario is Admin)
                 {
                     Modelo.Excluir();
+                    BaseModel.modelos.Remove(Modelo);
                     MessageBox.Show("Dados apagados com sucesso!!!");
                 }
                 else if (!(Modelo is Email))
                 {
                     Modelo.Excluir();
+                    BaseModel.modelos.Remove(Modelo);
                     MessageBox.Show("Dados apagados com sucesso!!!");
                 }
                 else
-                    MessageBox.Show("Dados apagados com sucesso!!!");
+                    MessageBox.Show("você não tem permissão!!!");
 
             }
             else
@@ -277,21 +180,100 @@ namespace DesktopEmail.Formulario
             Deletar.Enabled = true;
         }
 
-        private void FrmCrud_FormClosing(object sender, FormClosingEventArgs e)
+        private async void FrmCrud_FormClosing(object sender, FormClosingEventArgs e)
         {
-            var sistema = "";
-        }
+            if (Modelo.Id != 0)
+            {
+                BaseModel resultado = null;
 
-        public FrmCrud()
-        {
-            InitializeComponent();
-        }
+                var listaTypes = typeof(BaseModel).Assembly.GetTypes()
+            .Where(type => !type.IsAbstract && type.IsSubclassOf(typeof(BaseModel))).ToList();
 
-       
+                foreach (var item in listaTypes)
+                  if(Modelo.GetType() == item)
+                  resultado = (BaseModel) Activator.CreateInstance(item);
+
+                resultado = await resultado.Recuperar(Modelo.Id);
+                if (resultado != null)
+                {
+                    BaseModel.modelos.Remove(Modelo);
+                    BaseModel.modelos.Add(resultado);
+                } 
+            }
+        }
+                    
 
         private void FrmCrud_Load(object sender, EventArgs e)
         {
+            
+        }
 
+        public void LoadForm()
+        {
+            if (this.CondicaoAtualizar || this.CondicaoDeletar || this.CondicaoDetalhes)
+            {
+                InfoForm.Visible = true;
+                FinalizaCadastro.Visible = false;
+
+                if (Modelo is Pessoa)
+                {
+                    var pessoa = (Pessoa)Modelo;
+                    InfoForm.Text = "Identificação: " + pessoa.Id.ToString() +
+                    " - " + pessoa.Nome;
+                }
+                else
+                if (Modelo is Permissao)
+                {
+                    var permissao = (Permissao)Modelo;
+                    InfoForm.Text = "Identificação: " + permissao.Id.ToString() +
+                        " - " + permissao.Nome;
+                }
+                else
+                if (Modelo is Email)
+                {
+                    var email = (Email)Modelo;
+                    InfoForm.Text = "Identificação: " + email.Id.ToString() +
+                    " - " + email.Assunto;
+                }
+
+            }
+
+            if (!this.CondicaoAtualizar && !this.CondicaoDeletar && !this.CondicaoDetalhes && this is FrmCrud)
+            {
+                FinalizaCadastro.Visible = true;
+            }
+
+            if (this.CondicaoAtualizar)
+                Atualizar.Visible = true;
+
+
+            if (this.CondicaoDeletar)
+                Deletar.Visible = true;
+
+            if (this.CondicaoDetalhes)
+            {
+                foreach (var item in this.Controls)
+                {
+                    if (item is TextBox)
+                    {
+                        var t = (TextBox)item;
+                        t.ReadOnly = true;
+                    }
+                    if (item is MaskedTextBox)
+                    {
+                        var t = (MaskedTextBox)item;
+                        t.ReadOnly = true;
+                    }
+
+                    if (item is Button && !(this is FrmAtendente) &&
+                        !(this is FrmClientePF) && !(this is FrmClientePJ) &&
+                        !(this is FrmAdmin) && !(this is FrmTerceiros))
+                    {
+                        var t = (Button)item;
+                        t.Enabled = false;
+                    }
+                }
+            }
         }
     }
 }

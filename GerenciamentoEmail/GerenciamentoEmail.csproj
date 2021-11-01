@@ -1,5 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
+
+
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <UserSecretsId>aspnet-GerenciamentoEmail-D6CA8BB5-2A69-4CF9-88A3-8848F922481E</UserSecretsId>
@@ -8,6 +10,7 @@
 
 
   <ItemGroup>
+    <PackageReference Include="Mailjet.Api" Version="2.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.0" />
@@ -18,5 +21,15 @@
   <ItemGroup>
     <ProjectReference Include="..\business\business.csproj" />
   </ItemGroup>
+
+
+  <ItemGroup>
+    <Reference Include="System">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

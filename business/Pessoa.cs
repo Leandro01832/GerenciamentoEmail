@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -9,32 +11,13 @@ namespace business
     {
         private string nome;
         [OpcoesBase(ChaveEstrangeira = false, ChavePrimaria = false, Index = false, Obrigatorio = true)]
-        public string Nome
-        {
-            get
-            {
-                if ( string.IsNullOrWhiteSpace(nome) ||  string.IsNullOrWhiteSpace(nome))
-                    throw new Exception("Nome");
-                return nome;
-            }
-            set { nome = value; }
-        }
+        [Required(ErrorMessage = "Este campo é necessário!!!")]
+        public string Nome { get; set; }
 
         private string email;
         [OpcoesBase(ChaveEstrangeira =false, ChavePrimaria =false, Index =true, Obrigatorio =true)]
-        public string Email
-        {
-            get
-            {
-                Regex rg = new Regex(@"^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$");
-
-                if (!rg.IsMatch(email))
-                    throw new Exception("Email");
-                
-                return email;
-            }
-            set { email = value; }
-        }
+        [Required(ErrorMessage ="Este campo é necessário!!!")]
+        public string Email { get; set; }
 
         public int? PessoaPJId { get; set; }
 

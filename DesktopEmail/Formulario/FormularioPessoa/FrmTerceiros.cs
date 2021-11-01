@@ -7,24 +7,20 @@ namespace DesktopEmail.Formulario.FormularioPessoa
 {
     public partial class FrmTerceiros : FrmCrud
     {
-        public FrmTerceiros()
+        public FrmTerceiros() : base()
         {
             InitializeComponent();
         }
 
         // variavel para evitar bug
         bool condicao = false;
-
-        public FrmTerceiros(BaseModel modelo, bool deletar, bool atualizar, bool detalhes)
-            : base(modelo, deletar, atualizar, detalhes)
-        {
-            InitializeComponent();
-        }
+        
 
         private void FrmTerceiros_Load(object sender, EventArgs e)
         {
             lstBoxEmpresa.DataSource = BaseModel.modelos.OfType<PessoaPJ>().ToList();
-            lstBoxEmpresa.SetSelected(0, false);
+            if (BaseModel.modelos.OfType<PessoaPJ>().ToList().Count > 0)
+                lstBoxEmpresa.SetSelected(0, false);
 
             var PessoaPF = (PessoaPF)Modelo;
             if (PessoaPF.Id != 0)
@@ -37,6 +33,7 @@ namespace DesktopEmail.Formulario.FormularioPessoa
             }
 
             condicao = true;
+            LoadForm();
         }
 
         private void txtNome_TextChanged(object sender, EventArgs e)

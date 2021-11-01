@@ -35,12 +35,14 @@
             this.txtAssunto = new System.Windows.Forms.TextBox();
             this.lstEmail = new System.Windows.Forms.ListBox();
             this.wbHtml = new System.Windows.Forms.WebBrowser();
+            this.lstCategoria = new System.Windows.Forms.ListBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnEnviar
             // 
             this.btnEnviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEnviar.Location = new System.Drawing.Point(798, 684);
+            this.btnEnviar.Location = new System.Drawing.Point(1261, 627);
             this.btnEnviar.Name = "btnEnviar";
             this.btnEnviar.Size = new System.Drawing.Size(174, 42);
             this.btnEnviar.TabIndex = 1;
@@ -103,11 +105,34 @@
             this.wbHtml.Size = new System.Drawing.Size(967, 604);
             this.wbHtml.TabIndex = 7;
             // 
+            // lstCategoria
+            // 
+            this.lstCategoria.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstCategoria.FormattingEnabled = true;
+            this.lstCategoria.ItemHeight = 25;
+            this.lstCategoria.Location = new System.Drawing.Point(895, 627);
+            this.lstCategoria.Name = "lstCategoria";
+            this.lstCategoria.Size = new System.Drawing.Size(349, 104);
+            this.lstCategoria.TabIndex = 8;
+            this.lstCategoria.SelectedValueChanged += new System.EventHandler(this.lstCategoria_SelectedValueChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(781, 636);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(103, 25);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Categoria:";
+            // 
             // FrmEnviaEmail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1777, 738);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lstCategoria);
             this.Controls.Add(this.wbHtml);
             this.Controls.Add(this.lstEmail);
             this.Controls.Add(this.label2);
@@ -131,5 +156,7 @@
         private System.Windows.Forms.TextBox txtAssunto;
         private System.Windows.Forms.ListBox lstEmail;
         private System.Windows.Forms.WebBrowser wbHtml;
+        private System.Windows.Forms.ListBox lstCategoria;
+        private System.Windows.Forms.Label label3;
     }
 }

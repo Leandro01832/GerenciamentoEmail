@@ -35,7 +35,7 @@
             // txtNome
             // 
             this.txtNome.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNome.Location = new System.Drawing.Point(223, 193);
+            this.txtNome.Location = new System.Drawing.Point(158, 193);
             this.txtNome.Name = "txtNome";
             this.txtNome.Size = new System.Drawing.Size(251, 30);
             this.txtNome.TabIndex = 11;
@@ -47,9 +47,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(23, 198);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(194, 25);
+            this.label1.Size = new System.Drawing.Size(103, 25);
             this.label1.TabIndex = 10;
-            this.label1.Text = "Nome da Permissão:";
+            this.label1.Text = "Categoria:";
             // 
             // FrmPermissao
             // 
@@ -60,6 +60,9 @@
             this.Controls.Add(this.label1);
             this.Name = "FrmPermissao";
             this.Text = "FrmPermissao";
+            this.Load += new System.EventHandler(this.FrmPermissao_Load);
+            this.Controls.SetChildIndex(this.label1, 0);
+            this.Controls.SetChildIndex(this.txtNome, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -28,30 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label4 = new System.Windows.Forms.Label();
             this.txtSenha = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtNome = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.lstPermissoes = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(42, 230);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(120, 25);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "Permissões:";
             // 
             // txtSenha
             // 
             this.txtSenha.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSenha.Location = new System.Drawing.Point(185, 178);
+            this.txtSenha.Location = new System.Drawing.Point(178, 268);
             this.txtSenha.Name = "txtSenha";
             this.txtSenha.Size = new System.Drawing.Size(251, 30);
             this.txtSenha.TabIndex = 13;
@@ -62,7 +50,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(68, 183);
+            this.label3.Location = new System.Drawing.Point(61, 273);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(76, 25);
             this.label3.TabIndex = 12;
@@ -71,7 +59,7 @@
             // txtEmail
             // 
             this.txtEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmail.Location = new System.Drawing.Point(185, 121);
+            this.txtEmail.Location = new System.Drawing.Point(178, 211);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(251, 30);
             this.txtEmail.TabIndex = 11;
@@ -81,7 +69,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(68, 126);
+            this.label2.Location = new System.Drawing.Point(61, 216);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 25);
             this.label2.TabIndex = 10;
@@ -90,7 +78,7 @@
             // txtNome
             // 
             this.txtNome.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNome.Location = new System.Drawing.Point(185, 55);
+            this.txtNome.Location = new System.Drawing.Point(178, 145);
             this.txtNome.Name = "txtNome";
             this.txtNome.Size = new System.Drawing.Size(251, 30);
             this.txtNome.TabIndex = 9;
@@ -100,31 +88,17 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(68, 60);
+            this.label1.Location = new System.Drawing.Point(61, 150);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(70, 25);
             this.label1.TabIndex = 8;
             this.label1.Text = "Nome:";
-            // 
-            // lstPermissoes
-            // 
-            this.lstPermissoes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstPermissoes.FormattingEnabled = true;
-            this.lstPermissoes.ItemHeight = 25;
-            this.lstPermissoes.Location = new System.Drawing.Point(185, 242);
-            this.lstPermissoes.Name = "lstPermissoes";
-            this.lstPermissoes.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.lstPermissoes.Size = new System.Drawing.Size(251, 179);
-            this.lstPermissoes.TabIndex = 15;
-            this.lstPermissoes.SelectedValueChanged += new System.EventHandler(this.lstPermissoes_SelectedValueChanged);
             // 
             // FrmAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.lstPermissoes);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.txtSenha);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtEmail);
@@ -140,13 +114,11 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtSenha;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtNome;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListBox lstPermissoes;
     }
 }

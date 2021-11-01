@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GerenciamentoEmail.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211025112449_Inicio")]
+    [Migration("20211101144902_Inicio")]
     partial class Inicio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -197,54 +197,40 @@ namespace GerenciamentoEmail.Migrations
                     b.ToTable("Body");
                 });
 
-            modelBuilder.Entity("business.EmailAdvocacia", b =>
+            modelBuilder.Entity("business.Categoria", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Assunto");
-
-                    b.Property<DateTime>("Data");
-
-                    b.Property<string>("MensagemId");
-
-                    b.Property<int>("PessoaId");
+                    b.Property<int>("Id");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PessoaId");
-
-                    b.ToTable("EmailAdvocacia");
+                    b.ToTable("Categoria");
                 });
 
-            modelBuilder.Entity("business.EmailCliente", b =>
+            modelBuilder.Entity("business.Email", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Assunto");
+                    b.Property<string>("Assunto")
+                        .IsRequired();
 
-                    b.Property<int?>("AtendenteId");
-
-                    b.Property<string>("Body");
-
-                    b.Property<string>("Categoria");
-
-                    b.Property<string>("ConteudoTexto");
+                    b.Property<int>("CategoriaId");
 
                     b.Property<DateTime>("Data");
 
-                    b.Property<string>("MensagemId");
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
 
-                    b.Property<string>("Remetente");
+                    b.Property<string>("MensagemId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AtendenteId");
+                    b.HasIndex("CategoriaId");
 
-                    b.ToTable("EmailCliente");
+                    b.ToTable("Email");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Email");
                 });
 
             modelBuilder.Entity("business.Permissao", b =>
@@ -282,17 +268,18 @@ namespace GerenciamentoEmail.Migrations
                     b.Property<string>("Discriminator")
                         .IsRequired();
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .IsRequired();
 
-                    b.Property<string>("Nome");
+                    b.Property<string>("Nome")
+                        .IsRequired();
 
                     b.Property<int?>("PessoaPJId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
-                        .IsUnique()
-                        .HasFilter("[Email] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("PessoaPJId");
 
@@ -301,11 +288,42 @@ namespace GerenciamentoEmail.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Pessoa");
                 });
 
+            modelBuilder.Entity("business.EmailAdvocacia", b =>
+                {
+                    b.HasBaseType("business.Email");
+
+                    b.Property<bool>("Enviado");
+
+                    b.Property<int>("PessoaId");
+
+                    b.HasIndex("PessoaId");
+
+                    b.HasDiscriminator().HasValue("EmailAdvocacia");
+                });
+
+            modelBuilder.Entity("business.EmailCliente", b =>
+                {
+                    b.HasBaseType("business.Email");
+
+                    b.Property<int?>("AtendenteId");
+
+                    b.Property<string>("Body");
+
+                    b.Property<string>("ConteudoTexto");
+
+                    b.Property<string>("Remetente");
+
+                    b.HasIndex("AtendenteId");
+
+                    b.HasDiscriminator().HasValue("EmailCliente");
+                });
+
             modelBuilder.Entity("business.Funcionario", b =>
                 {
                     b.HasBaseType("business.Pessoa");
 
-                    b.Property<string>("Senha");
+                    b.Property<string>("Senha")
+                        .IsRequired();
 
                     b.HasDiscriminator().HasValue("Funcionario");
                 });
@@ -402,19 +420,20 @@ namespace GerenciamentoEmail.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("business.EmailAdvocacia", b =>
+            modelBuilder.Entity("business.Categoria", b =>
                 {
-                    b.HasOne("business.Pessoa", "Pessoa")
-                        .WithMany("EmailAdvocacia")
-                        .HasForeignKey("PessoaId")
+                    b.HasOne("business.Permissao", "Permissao")
+                        .WithOne("Categoria")
+                        .HasForeignKey("business.Categoria", "Id")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("business.EmailCliente", b =>
+            modelBuilder.Entity("business.Email", b =>
                 {
-                    b.HasOne("business.Atendente", "Atendente")
-                        .WithMany("EmailCliente")
-                        .HasForeignKey("AtendenteId");
+                    b.HasOne("business.Categoria", "Categoria")
+                        .WithMany("Email")
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("business.PermissaoFuncionario", b =>
@@ -435,6 +454,21 @@ namespace GerenciamentoEmail.Migrations
                     b.HasOne("business.PessoaPJ", "PessoaPJ")
                         .WithMany("Clientes")
                         .HasForeignKey("PessoaPJId");
+                });
+
+            modelBuilder.Entity("business.EmailAdvocacia", b =>
+                {
+                    b.HasOne("business.Pessoa", "Pessoa")
+                        .WithMany("EmailAdvocacia")
+                        .HasForeignKey("PessoaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("business.EmailCliente", b =>
+                {
+                    b.HasOne("business.Atendente", "Atendente")
+                        .WithMany("EmailCliente")
+                        .HasForeignKey("AtendenteId");
                 });
 #pragma warning restore 612, 618
         }

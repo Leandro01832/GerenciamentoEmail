@@ -14,21 +14,29 @@ namespace Tests
 
             // BuscaEmail("pop.gmail.com", 995, "leandro91luis@gmail.com", "Gasparzinho2020");
 
-            Admin admin = new Admin();
-            admin.Email = "leo";
-          //  admin.Nome = "leandro";
-            admin.Senha = "123";
-            try
-            {
-                admin.Salvar();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(admin.MensagemErro(ex));
-            }
+            //  Admin admin = new Admin();
+            //  admin.Email = "leo";
+            //  admin.Nome = "leandro";
+            // admin.Senha = "123";
+            // try
+            // {
+            //     admin.Salvar();
+            // }
+            // catch (Exception ex)
+            // {
+            //     Console.WriteLine(admin.MensagemErro(ex));
+            // }
+
+            // var listaTypes = typeof(BaseModel).Assembly.GetTypes()
+            // .Where(type => !type.IsAbstract && type.IsSubclassOf(typeof(BaseModel))).ToList();
+            //
+            // foreach(var item in listaTypes)
+            // Console.WriteLine(item.Name);
+
+            var texto = typeof(BaseModel).Assembly.ToString();
 
 
-            Console.WriteLine("OK!");
+            Console.WriteLine(texto);
             Console.Read();
         }
 

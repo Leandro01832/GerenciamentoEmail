@@ -3,11 +3,11 @@ using OpenPop.Mime.Header;
 using OpenPop.Pop3;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Configuration;
 using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Text;
+using System.Media;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,19 +15,40 @@ namespace DesktopEmail.Formulario
 {
     public partial class FormPadrao : Form
     {
+
         public FormPadrao()
         {
             InitializeComponent();
         }
 
-        public static string PrimeiroAdminEmail = "leandroleanleo@gmail.com";
+        public static string Email;
+        public static string SenhaEmail;
+        public static string PrimeiroAdminEmail = "leandro123";
         public static string PrimeiroAdminSenha = "sistema123";
         public static bool ativar = false;
+        static bool condicao = true;
 
         public static Funcionario funcionario;
+        Timer timer;
+        static string path = Directory.GetCurrentDirectory();
+
+        private void playSimpleSound()
+        {
+            SoundPlayer simpleSound = new SoundPlayer($@"{path}\desperta.wav");
+            simpleSound.Play();
+        }
 
         private async void FormPadrao_Load(object sender, EventArgs e)
         {
+          //  Process.Start("https://www.advocacia.somee.com");
+            notifyIcon1.Icon = new Icon($@"{path}\favicon.ico");
+            timer = new Timer();
+            timer.Interval = 60000;
+            timer.Enabled = true;
+            timer.Tick += Timer_Tick;
+            var appSettings = ConfigurationManager.AppSettings;
+            Email = appSettings["Email"];
+            SenhaEmail = appSettings["Senha"];
             BaseModel.Desktop = true;
 
             FrmAutenticacao form = new FrmAutenticacao();
@@ -39,8 +60,7 @@ namespace DesktopEmail.Formulario
                 var arr = new string[]
                 {
                     "EnviarEmail", "LerEmail", "AtualizarEmail", "DeletarEmail", "CadastrarBody",
-                    "CadastrarPessoa", "AtulizarPessoa", "BuscarPessoa", "DeletarPessoa",
-                    "Admin", "AdminEmail", "AdminPessoa", "Permissao"
+                    "CadastrarPessoa", "AtulizarPessoa", "BuscarPessoa", "DeletarPessoa"
                 };
 
                 foreach (var item in arr)
@@ -48,22 +68,43 @@ namespace DesktopEmail.Formulario
                     var permissao = new Permissao { Nome = item };
                     permissao.Salvar();
                 }
+                await Task.Run(() => BaseModel.Recuperar());
             }
+        }
 
-            await Task.Run(() => BuscaEmail("pop.gmail.com", 995, EmailAdvocacia.EndEmailAdvocacia, EmailAdvocacia.SenhaAdvocacia));
-
-
+        private async void Timer_Tick(object sender, EventArgs e)
+        {
+            int numero = 0;
+            if(BaseModel.modelos.OfType<EmailCliente>().ToList().Count > 0)
+            numero = BaseModel.modelos.OfType<EmailCliente>().OrderBy(em => em.Id).Last().Id;
+            if (EmailCliente.BuscarUltimoId() < numero && condicao)
+            {
+                condicao = false;
+                playSimpleSound();
+                notifyIcon1.ShowBalloonTip(2000, "Info", "Uma nova mensagem apareceu!!!. ", ToolTipIcon.Info);
+                await Task.Run(() => BuscaEmail("pop.gmail.com", 995, Email, SenhaEmail));
+                condicao = true;
+            }
+            else
+            {
+                if (condicao)
+                {
+                    condicao = false;
+                    await Task.Run(() => BuscaEmail("pop.gmail.com", 995, Email, SenhaEmail));
+                    condicao = true; 
+                }
+            }
         }
 
         private void gerenciamentoDeEmailToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (ativar ||
+                funcionario != null && funcionario is Admin||
                 funcionario != null && funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "EnviarEmail")    != null ||
                 funcionario != null && funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "LerEmail")       != null || 
                 funcionario != null && funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "DeletarEmail")   != null ||
-                funcionario != null && funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "AtualizarEmail") != null ||
-                funcionario != null && funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "AdminEmail") != null ||
-                funcionario != null && funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "Admin")          != null )
+                funcionario != null && funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "CadastrarBody")   != null ||
+                funcionario != null && funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "AtualizarEmail") != null)
             {
                 MDIEmail form = new MDIEmail();
                 form.Show();
@@ -84,13 +125,11 @@ namespace DesktopEmail.Formulario
         private void gerenciamentoDeFuncionariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (ativar ||
-                funcionario != null && funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "Admin") != null ||
-                funcionario != null && funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "AdminPessoa") != null ||
+                funcionario is Admin ||
                 funcionario != null && funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "CadastrarPessoa") != null ||
                 funcionario != null && funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "AtulizarPessoa") != null ||
                 funcionario != null && funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "BuscarPessoa") != null ||
-                funcionario != null && funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "DeletarPessoa") != null ||
-                funcionario != null && funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "Permissao") != null )
+                funcionario != null && funcionario.Permissao.FirstOrDefault(p => p.Permissao.Nome == "DeletarPessoa") != null )
             {
                 MDIFormulario form = new MDIFormulario();
                 form.Show();

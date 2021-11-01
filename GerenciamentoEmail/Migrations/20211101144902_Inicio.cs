@@ -66,8 +66,8 @@ namespace GerenciamentoEmail.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
+                    Nome = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: false),
                     PessoaPJId = table.Column<int>(nullable: true),
                     Discriminator = table.Column<string>(nullable: false),
                     Senha = table.Column<string>(nullable: true),
@@ -192,51 +192,20 @@ namespace GerenciamentoEmail.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EmailAdvocacia",
+                name: "Categoria",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    MensagemId = table.Column<string>(nullable: true),
-                    Assunto = table.Column<string>(nullable: true),
-                    Data = table.Column<DateTime>(nullable: false),
-                    PessoaId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmailAdvocacia", x => x.Id);
+                    table.PrimaryKey("PK_Categoria", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EmailAdvocacia_Pessoa_PessoaId",
-                        column: x => x.PessoaId,
-                        principalTable: "Pessoa",
+                        name: "FK_Categoria_Permissao_Id",
+                        column: x => x.Id,
+                        principalTable: "Permissao",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EmailCliente",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    MensagemId = table.Column<string>(nullable: true),
-                    Assunto = table.Column<string>(nullable: true),
-                    Data = table.Column<DateTime>(nullable: false),
-                    Remetente = table.Column<string>(nullable: true),
-                    Categoria = table.Column<string>(nullable: true),
-                    ConteudoTexto = table.Column<string>(nullable: true),
-                    Body = table.Column<string>(nullable: true),
-                    AtendenteId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EmailCliente", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_EmailCliente_Pessoa_AtendenteId",
-                        column: x => x.AtendenteId,
-                        principalTable: "Pessoa",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -264,6 +233,47 @@ namespace GerenciamentoEmail.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Email",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CategoriaId = table.Column<int>(nullable: false),
+                    MensagemId = table.Column<string>(nullable: true),
+                    Assunto = table.Column<string>(nullable: false),
+                    Data = table.Column<DateTime>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    Enviado = table.Column<bool>(nullable: true),
+                    PessoaId = table.Column<int>(nullable: true),
+                    Remetente = table.Column<string>(nullable: true),
+                    ConteudoTexto = table.Column<string>(nullable: true),
+                    Body = table.Column<string>(nullable: true),
+                    AtendenteId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Email", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Email_Categoria_CategoriaId",
+                        column: x => x.CategoriaId,
+                        principalTable: "Categoria",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Email_Pessoa_PessoaId",
+                        column: x => x.PessoaId,
+                        principalTable: "Pessoa",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Email_Pessoa_AtendenteId",
+                        column: x => x.AtendenteId,
+                        principalTable: "Pessoa",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Body",
                 columns: table => new
                 {
@@ -274,9 +284,9 @@ namespace GerenciamentoEmail.Migrations
                 {
                     table.PrimaryKey("PK_Body", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Body_EmailAdvocacia_Id",
+                        name: "FK_Body_Email_Id",
                         column: x => x.Id,
-                        principalTable: "EmailAdvocacia",
+                        principalTable: "Email",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -321,13 +331,18 @@ namespace GerenciamentoEmail.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmailAdvocacia_PessoaId",
-                table: "EmailAdvocacia",
+                name: "IX_Email_CategoriaId",
+                table: "Email",
+                column: "CategoriaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Email_PessoaId",
+                table: "Email",
                 column: "PessoaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmailCliente_AtendenteId",
-                table: "EmailCliente",
+                name: "IX_Email_AtendenteId",
+                table: "Email",
                 column: "AtendenteId");
 
             migrationBuilder.CreateIndex(
@@ -339,8 +354,7 @@ namespace GerenciamentoEmail.Migrations
                 name: "IX_Pessoa_Email",
                 table: "Pessoa",
                 column: "Email",
-                unique: true,
-                filter: "[Email] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pessoa_PessoaPJId",
@@ -369,9 +383,6 @@ namespace GerenciamentoEmail.Migrations
                 name: "Body");
 
             migrationBuilder.DropTable(
-                name: "EmailCliente");
-
-            migrationBuilder.DropTable(
                 name: "PermissaoFuncionario");
 
             migrationBuilder.DropTable(
@@ -381,13 +392,16 @@ namespace GerenciamentoEmail.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "EmailAdvocacia");
+                name: "Email");
 
             migrationBuilder.DropTable(
-                name: "Permissao");
+                name: "Categoria");
 
             migrationBuilder.DropTable(
                 name: "Pessoa");
+
+            migrationBuilder.DropTable(
+                name: "Permissao");
         }
     }
 }
